@@ -16,7 +16,6 @@
 
 package com.google.identitytoolkit;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -41,6 +40,7 @@ public class JsonTokenHelper {
   public static final String ID_TOKEN_PROVIDER = "provider_id";
   public static final String ID_TOKEN_DISPLAY_NAME = "display_name";
   public static final String ID_TOKEN_PHOTO_URL = "photo_url";
+  public static final String ID_TOKEN_EMAIL_VERIFIED = "verified";
   private final JsonTokenParser parser;
 
   public JsonTokenHelper(RpcHelper rpcHelper, String serverApiKey, String... audiences) {

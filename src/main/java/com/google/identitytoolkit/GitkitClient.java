@@ -51,6 +51,7 @@ import javax.servlet.http.HttpServletRequest;
  * developers needs to know to integrate Gitkit with their backend server. Main features are
  * Gitkit token verification and Gitkit remote API wrapper.
  */
+
 public class GitkitClient {
 
   @VisibleForTesting
@@ -188,15 +189,17 @@ public class GitkitClient {
     return new GitkitUser()
         .setLocalId(jsonToken.get(JsonTokenHelper.ID_TOKEN_USER_ID).getAsString())
         .setEmail(jsonToken.get(JsonTokenHelper.ID_TOKEN_EMAIL).getAsString())
+        .setEmailVerified(jsonToken.has(JsonTokenHelper.ID_TOKEN_EMAIL_VERIFIED) &&
+                          jsonToken.get(JsonTokenHelper.ID_TOKEN_EMAIL_VERIFIED).getAsBoolean())
         .setCurrentProvider(jsonToken.has(JsonTokenHelper.ID_TOKEN_PROVIDER)
-            ? jsonToken.get(JsonTokenHelper.ID_TOKEN_PROVIDER).getAsString()
-            : null)
+                            ? jsonToken.get(JsonTokenHelper.ID_TOKEN_PROVIDER).getAsString()
+                            : null)
         .setName(jsonToken.has(JsonTokenHelper.ID_TOKEN_DISPLAY_NAME)
-            ? jsonToken.get(JsonTokenHelper.ID_TOKEN_DISPLAY_NAME).getAsString()
-            : null)
+                 ? jsonToken.get(JsonTokenHelper.ID_TOKEN_DISPLAY_NAME).getAsString()
+                 : null)
         .setPhotoUrl(jsonToken.has(JsonTokenHelper.ID_TOKEN_PHOTO_URL)
-            ? jsonToken.get(JsonTokenHelper.ID_TOKEN_PHOTO_URL).getAsString()
-            : null);
+                     ? jsonToken.get(JsonTokenHelper.ID_TOKEN_PHOTO_URL).getAsString()
+                     : null);
   }
 
   /**
@@ -707,12 +710,14 @@ public class GitkitClient {
         JSONObject provider = fedInfo.getJSONObject(idp);
         providerInfo.add(new GitkitUser.ProviderInfo(
             provider.getString("providerId"),
-            provider.getString("federatedId"),
             provider.optString("displayName"),
-            provider.optString("photoUrl")));
+            provider.optString("photoUrl"),
+            provider.getString("federatedId")));
       }
       user.setProviders(providerInfo);
     }
+    user.setEmailVerified(jsonUser.optBoolean("emailVerified", false));
+
     return user;
   }
 
