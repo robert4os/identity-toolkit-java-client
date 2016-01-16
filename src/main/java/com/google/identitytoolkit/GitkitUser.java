@@ -31,6 +31,7 @@ import java.util.List;
  */
 public class GitkitUser {
   private String email;
+  private boolean emailVerified;
   private String localId;
   private String name;
   private String photoUrl;
@@ -45,6 +46,15 @@ public class GitkitUser {
 
   public GitkitUser setEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public boolean isEmailVerified() {
+    return emailVerified;
+  }
+
+  public GitkitUser setEmailVerified(boolean emailVerified) {
+    this.emailVerified = emailVerified;
     return this;
   }
 

@@ -38,8 +38,8 @@ public class HttpSender {
   HttpSender() {}
 
   HttpSender(Proxy proxy) {
-        this.proxy = proxy;
-    }
+    this.proxy = proxy;
+  }
 
   /**
    * Sends a HTTP Get request.

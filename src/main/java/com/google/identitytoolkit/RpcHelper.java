@@ -166,7 +166,7 @@ public class RpcHelper {
   }
 
   public JSONObject updateAccount(GitkitUser account)
-      throws GitkitServerException, GitkitClientException {
+    throws GitkitServerException, GitkitClientException {
     try {
       JSONObject params = new JSONObject()
           .put("email", account.getEmail())
@@ -334,6 +334,7 @@ public class RpcHelper {
     for (GitkitUser account : accounts) {
       JSONObject user = new JSONObject();
       user.put("email", account.getEmail());
+      user.put("emailVerified", account.isEmailVerified());
       user.put("localId", account.getLocalId());
       if (account.getHash() != null) {
         user.put("passwordHash", BaseEncoding.base64Url().encode(account.getHash()));
